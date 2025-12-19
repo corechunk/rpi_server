@@ -73,12 +73,12 @@ You can also execute the scripts directly from the internet using `curl`.
 
 #### Bash (`setup.sh`)
 ```sh
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/setup.sh | bash
+curl -fsSL https://raw.githubusercontent.com/corechunk/rpi_server/main/setup.sh | bash
 ```
 
 #### POSIX (`POSIX.sh`)
 ```sh
-curl -fsSL https://raw.githubusercontent.com/YOUR_USERNAME/YOUR_REPO/main/POSIX.sh | sh
+curl -fsSL https://raw.githubusercontent.com/corechunk/rpi_server/main/POSIX.sh | sh
 ```
 
 > [!CAUTION]
