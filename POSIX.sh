@@ -22,8 +22,18 @@ package_manager(){
         echo "apt"
     elif command -v pacman 1>/dev/null 2>&1; then
         echo "pacman"
-    elif command -v dnf 1>/dev/null 2>&1;
+    elif command -v dnf 1>/dev/null 2>&1; then
         echo "dnf"
+    elif command -v brew 1>/dev/null 2>&1; then
+        echo "brew"
+    elif command -v pkg 1>/dev/null 2>&1; then
+        echo "pkg"
+    elif command -v zypper 1>/dev/null 2>&1; then
+        echo "zypper"
+    elif command -v yum 1>/dev/null 2>&1; then
+        echo "yum"
+    elif command -v emerge 1>/dev/null 2>&1; then
+        echo "emerge"
     else
         echo "unknown"
     fi
@@ -60,6 +70,16 @@ install_pkg_dynamic(){
             sudo pacman -S --noconfirm --needed "$1"
         elif [ "$pm" = "dnf" ]; then
             sudo dnf install -y "$1"
+        elif [ "$pm" = "brew" ]; then
+            brew install "$1"
+        elif [ "$pm" = "pkg" ]; then
+            sudo pkg install -y "$1"
+        elif [ "$pm" = "zypper" ]; then
+            sudo zypper install -y "$1"
+        elif [ "$pm" = "yum" ]; then
+            sudo yum install -y "$1"
+        elif [ "$pm" = "emerge" ]; then
+            sudo emerge -av "$1"
         else
             echo "${RED}Unknown package manager. Cannot install '$1'. Please install it manually.${RESET}" 1>&2
         fi
@@ -133,7 +153,7 @@ select_partition_path(){
             rm "$parsable_output_file"
             continue
         fi
-
+        
         data_line_index=$(expr "$choice" - 1)
         if [ "$data_line_index" -lt 1 ]; then
              echo "${RED}Invalid selection. You cannot select the header line.${RESET}" 1>&2
@@ -262,7 +282,7 @@ enable_user(){
 					read hashedpasswd
 				done
 				break
-				;; 
+				;;
 			2)
 				echo "${MAGENTA}SHA${RESET} : ${SKY_BLUE}Secure Hash Algorithom${RESET}" 1>&2
 				echo "" 1>&2
@@ -311,10 +331,10 @@ enable_user(){
 
 				hashedpasswd=$(sha_gen "$method" "$salt" "$rounds" "$passwd")
 				break
-				;; 
+				;;
 			*)
 				echo "invalid choice, plz type 1 or 2" 1>&2
-				;; 
+				;;
 		esac
 	done
 
